@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="todate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="inscode" class="java.lang.String"/>
+	<parameter name="fromdate" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_institute" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     sum(transaction.`g_Rqnty`) AS transaction_g_Rqnty,
+     transaction.`g_grnno` AS transaction_g_grnno,
+     transaction.`g_warehose` AS transaction_g_warehose,
+     transaction.`g_initprice` AS transaction_g_initprice,
+     transaction.`g_transtype` AS transaction_g_transtype,
+     transaction.`g_date` AS transaction_g_date,
+     transaction.`g_itemcode` AS transaction_g_itemcode
+FROM
+     `transaction` transaction
+GROUP BY
+   transaction.`g_itemcode`
+HAVING
+ `transaction`.g_transtype = '" + "R" + "'
+ AND `transaction`.g_date BETWEEN '" +$P{fromdate}+ "' AND '" +$P{todate} ']]>
+	</queryString>
+	<field name="transaction_g_Rqnty" class="java.lang.Double"/>
+	<field name="transaction_g_grnno" class="java.lang.String"/>
+	<field name="transaction_g_warehose" class="java.lang.String"/>
+	<field name="transaction_g_initprice" class="java.lang.Double"/>
+	<field name="transaction_g_transtype" class="java.lang.String"/>
+	<field name="transaction_g_date" class="java.sql.Date"/>
+	<field name="transaction_g_itemcode" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="abc_analysis" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="32"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_institute" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="Tissue" class="java.lang.Double"/>
+	<parameter name="Ryear" class="java.lang.String"/>
+	<parameter name="aa" class="java.lang.String"/>
+	<parameter name="bb" class="java.lang.String"/>
+	<parameter name="ccc" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     abc_analysis.`d_srno` AS abc_analysis_d_srno,
+     abc_analysis.`d_ved` AS abc_analysis_d_ved,
+     abc_analysis.`d_uPrise` AS abc_analysis_d_uPrise,
+     abc_analysis.`d_issueval` AS abc_analysis_d_issueval,
+     dgs_surgicallist.`d_srno` AS dgs_surgicallist_d_srno,
+     dgs_surgicallist.`d_name` AS dgs_surgicallist_d_name,
+     dgs_surgicallist.`d_unit` AS dgs_surgicallist_d_unit,
+     dgs_surgicallist.`d_section` AS dgs_surgicallist_d_section,
+     dgs_surgicallist.`d_whno` AS dgs_surgicallist_d_whno,
+     dgs_surgicallist.`d_reodrlevel` AS dgs_surgicallist_d_reodrlevel,
+     dgs_surgicallist.`d_ved` AS dgs_surgicallist_d_ved,
+     dgs_surgicallist.`d_user` AS dgs_surgicallist_d_user,
+     dgs_surgicallist.`d_sysdate` AS dgs_surgicallist_d_sysdate,
+     abc_analysis.`d_cumu` AS abc_analysis_d_cumu,
+     abc_analysis.`d_abc` AS abc_analysis_d_abc,
+     abc_analysis.`d_cumu1` AS abc_analysis_d_cumu1
+FROM
+     `dgs_surgicallist` dgs_surgicallist INNER JOIN `abc_analysis` abc_analysis ON dgs_surgicallist.`d_srno` = abc_analysis.`d_srno`]]>
+	</queryString>
+	<field name="abc_analysis_d_srno" class="java.lang.String"/>
+	<field name="abc_analysis_d_ved" class="java.lang.String"/>
+	<field name="abc_analysis_d_uPrise" class="java.lang.Double"/>
+	<field name="abc_analysis_d_issueval" class="java.lang.Double"/>
+	<field name="dgs_surgicallist_d_srno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_name" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_unit" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_section" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_whno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_reodrlevel" class="java.lang.Integer"/>
+	<field name="dgs_surgicallist_d_ved" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_user" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_sysdate" class="java.lang.String"/>
+	<field name="abc_analysis_d_cumu" class="java.lang.Double"/>
+	<field name="abc_analysis_d_abc" class="java.lang.String"/>
+	<field name="abc_analysis_d_cumu1" class="java.lang.Double"/>
+	<sortField name="abc_analysis_d_issueval" order="Descending"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="63" splitType="Stretch">
+			<textField>
+				<reportElement x="30" y="0" width="722" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{p_institute}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="43" width="85" height="20"/>
+				<textElement/>
+				<text><![CDATA[Based On issues]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="20" width="384" height="23"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["ABC Analysis Report -" +  $P{Ryear}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="589" y="43" width="63" height="20"/>
+				<textElement/>
+				<text><![CDATA[Print Date :]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="652" y="43" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="59" height="20"/>
+				<textElement/>
+				<text><![CDATA[Item Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="0" width="384" height="20"/>
+				<textElement/>
+				<text><![CDATA[Item Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="523" y="0" width="114" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Issue Value (Rs.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="679" y="0" width="40" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Cum %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="725" y="2" width="27" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[ABC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="641" y="2" width="31" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[%]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="0" width="46" height="20"/>
+				<textElement/>
+				<text><![CDATA[S/No]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="523" y="2" width="114" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{abc_analysis_d_issueval}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="679" y="3" width="40" height="19"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{abc_analysis_d_cumu1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="725" y="2" width="27" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{abc_analysis_d_abc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="641" y="2" width="31" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{abc_analysis_d_cumu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="29" y="1" width="46" height="22"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="3" width="59" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{abc_analysis_d_srno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="2" width="384" height="21"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="318" y="3" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="398" y="3" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch">
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="506" y="0" width="131" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$P{Tissue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="414" y="0" width="81" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NET TOTAL]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

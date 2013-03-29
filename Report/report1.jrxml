@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_institute" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     transaction.`g_grnno` AS transaction_g_grnno,
+     transaction.`g_invoseno` AS transaction_g_invoseno,
+     transaction.`g_incode` AS transaction_g_incode,
+     transaction.`g_ordercode` AS transaction_g_ordercode,
+     transaction.`g_date` AS transaction_g_date,
+     transaction.`g_sysdate` AS transaction_g_sysdate,
+     transaction.`g_year` AS transaction_g_year,
+     transaction.`g_month` AS transaction_g_month,
+     transaction.`g_day` AS transaction_g_day,
+     transaction.`g_warehose` AS transaction_g_warehose,
+     transaction.`g_section` AS transaction_g_section,
+     transaction.`g_lot` AS transaction_g_lot,
+     transaction.`g_packsize` AS transaction_g_packsize,
+     transaction.`g_packs` AS transaction_g_packs,
+     transaction.`g_itemcode` AS transaction_g_itemcode,
+     transaction.`g_status` AS transaction_g_status,
+     transaction.`g_transtype` AS transaction_g_transtype,
+     transaction.`g_receipttype` AS transaction_g_receipttype,
+     transaction.`g_initprice` AS transaction_g_initprice,
+     transaction.`g_expdate` AS transaction_g_expdate,
+     transaction.`g_qnty` AS transaction_g_qnty,
+     transaction.`g_Rqnty` AS transaction_g_Rqnty,
+     transaction.`g_Iqnty` AS transaction_g_Iqnty,
+     transaction.`g_coment` AS transaction_g_coment,
+     transaction.`g_user` AS transaction_g_user
+FROM
+     `transaction` transaction]]>
+	</queryString>
+	<field name="transaction_g_grnno" class="java.lang.String"/>
+	<field name="transaction_g_invoseno" class="java.lang.String"/>
+	<field name="transaction_g_incode" class="java.lang.String"/>
+	<field name="transaction_g_ordercode" class="java.lang.Integer"/>
+	<field name="transaction_g_date" class="java.sql.Date"/>
+	<field name="transaction_g_sysdate" class="java.sql.Date"/>
+	<field name="transaction_g_year" class="java.lang.String"/>
+	<field name="transaction_g_month" class="java.lang.String"/>
+	<field name="transaction_g_day" class="java.lang.String"/>
+	<field name="transaction_g_warehose" class="java.lang.String"/>
+	<field name="transaction_g_section" class="java.lang.String"/>
+	<field name="transaction_g_lot" class="java.lang.String"/>
+	<field name="transaction_g_packsize" class="java.lang.Integer"/>
+	<field name="transaction_g_packs" class="java.lang.Integer"/>
+	<field name="transaction_g_itemcode" class="java.lang.String"/>
+	<field name="transaction_g_status" class="java.lang.String"/>
+	<field name="transaction_g_transtype" class="java.lang.String"/>
+	<field name="transaction_g_receipttype" class="java.lang.String"/>
+	<field name="transaction_g_initprice" class="java.lang.Double"/>
+	<field name="transaction_g_expdate" class="java.sql.Date"/>
+	<field name="transaction_g_qnty" class="java.lang.Double"/>
+	<field name="transaction_g_Rqnty" class="java.lang.Double"/>
+	<field name="transaction_g_Iqnty" class="java.lang.Double"/>
+	<field name="transaction_g_coment" class="java.lang.String"/>
+	<field name="transaction_g_user" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="10" width="344" height="28"/>
+				<textElement>
+					<font fontName="Times New Roman" size="24"/>
+				</textElement>
+				<text><![CDATA[Main Stock Report]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="11" y="38" width="446" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{p_institute}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="190" height="20"/>
+				<textElement/>
+				<text><![CDATA[transaction_g_itemcode]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="0" width="190" height="20"/>
+				<textElement/>
+				<text><![CDATA[transaction_g_grnno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="190" height="20"/>
+				<textElement/>
+				<text><![CDATA[transaction_g_invoseno]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="190" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{transaction_g_itemcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="190" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{transaction_g_grnno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="190" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{transaction_g_invoseno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="25" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

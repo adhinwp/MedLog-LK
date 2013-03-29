@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="STV_List" columnCount="4" pageWidth="612" pageHeight="792" columnWidth="133" leftMargin="57" rightMargin="20" topMargin="36" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_institute" class="java.lang.String"/>
+	<parameter name="MyNo" class="java.lang.String"/>
+	<parameter name="indname" class="java.lang.String"/>
+	<parameter name="dbname" class="java.lang.String"/>
+	<parameter name="fromdate" class="java.lang.String"/>
+	<parameter name="todate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     temp_transaction.`g_grnno` AS temp_transaction_g_grnno,
+     temp_transaction.`g_date` AS temp_transaction_g_date,
+     temp_transaction.`g_warehose` AS temp_transaction_g_warehose,
+     temp_transaction.`g_transtype` AS temp_transaction_g_transtype,
+     temp_transaction.`g_receipttype` AS temp_transaction_g_receipttype,
+     temp_transaction.`g_year` AS temp_transaction_g_year,
+     temp_transaction.`g_month` AS temp_transaction_g_month
+FROM
+     `temp_transaction` temp_transaction
+WHERE
+     temp_transaction.`g_receipttype` = "MSD"
+ AND temp_transaction.`g_transtype` = "R"
+ORDER BY
+     temp_transaction.`g_grnno` ASC]]>
+	</queryString>
+	<field name="temp_transaction_g_grnno" class="java.lang.String"/>
+	<field name="temp_transaction_g_date" class="java.sql.Date"/>
+	<field name="temp_transaction_g_warehose" class="java.lang.String"/>
+	<field name="temp_transaction_g_transtype" class="java.lang.String"/>
+	<field name="temp_transaction_g_receipttype" class="java.lang.String"/>
+	<field name="temp_transaction_g_year" class="java.lang.String"/>
+	<field name="temp_transaction_g_month" class="java.lang.String"/>
+	<group name="wh">
+		<groupExpression><![CDATA[$F{temp_transaction_g_warehose}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<textField>
+					<reportElement x="1" y="1" width="115" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{temp_transaction_g_warehose}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="2" y="23" width="66" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="185" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="321" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["My No : " + $P{MyNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="16" width="320" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{indname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="65" width="284" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[The Director,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="81" width="284" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Medical Supply Division,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="97" width="284" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Colombo 10.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="142" width="534" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Sending Stock Transfer Voucher - " + $P{dbname} + "  Year " + $F{temp_transaction_g_year}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="1" y="32" width="45" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="157" width="50" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date From]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy" isBlankWhenNull="true">
+				<reportElement x="52" y="157" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fromdate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="131" y="157" width="97" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{todate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="116" y="157" width="15" height="20"/>
+				<textElement/>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="183" width="534" height="2"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="2" y="2" width="114" height="20" isRemoveLineWhenBlank="true"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{temp_transaction_g_grnno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="1" width="534" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="201" y="3" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="281" y="3" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="27" width="320" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{indname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="12" width="284" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[.......................................................]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

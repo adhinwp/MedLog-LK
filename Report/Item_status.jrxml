@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Item_status" pageWidth="595" pageHeight="842" columnWidth="494" leftMargin="60" rightMargin="41" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Institution" class="java.lang.String"/>
+	<parameter name="itemcode" class="java.lang.String"/>
+	<parameter name="inscode" class="java.lang.String"/>
+	<parameter name="insname" class="java.lang.String"/>
+	<parameter name="Cyear" class="java.lang.String"/>
+	<parameter name="rmsdesmt" class="java.lang.String"/>
+	<parameter name="ttlrcpt" class="java.lang.String"/>
+	<parameter name="ttlissue" class="java.lang.String"/>
+	<parameter name="inhand" class="java.lang.String"/>
+	<parameter name="rcpypctg" class="java.lang.String"/>
+	<parameter name="issuepctg" class="java.lang.String"/>
+	<parameter name="insesmt" class="java.lang.String"/>
+	<parameter name="insissue" class="java.lang.String"/>
+	<parameter name="insbal" class="java.lang.String"/>
+	<parameter name="intinsissuepctg" class="java.lang.String"/>
+	<parameter name="lastqnty" class="java.lang.String"/>
+	<parameter name="dat1e" class="java.lang.String"/>
+	<parameter name="rmsdesmtVal" class="java.lang.String"/>
+	<parameter name="ttlrcptVal" class="java.lang.String"/>
+	<parameter name="ttlissueVal" class="java.lang.String"/>
+	<parameter name="inhandval" class="java.lang.String"/>
+	<parameter name="insesmtVal" class="java.lang.String"/>
+	<parameter name="insissueVal" class="java.lang.String"/>
+	<parameter name="insbalVal" class="java.lang.String"/>
+	<parameter name="lastissueVal" class="java.lang.String"/>
+	<parameter name="unit" class="java.lang.String"/>
+	<parameter name="Uprice" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     dgs_surgicallist.`d_srno` AS dgs_surgicallist_d_srno,
+     dgs_surgicallist.`d_name` AS dgs_surgicallist_d_name,
+     dgs_surgicallist.`d_unit` AS dgs_surgicallist_d_unit,
+     dgs_surgicallist.`d_section` AS dgs_surgicallist_d_section,
+     dgs_surgicallist.`d_whno` AS dgs_surgicallist_d_whno
+FROM
+     `dgs_surgicallist` dgs_surgicallist
+WHERE  dgs_surgicallist.`d_srno` = $P{itemcode}]]>
+	</queryString>
+	<field name="dgs_surgicallist_d_srno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_name" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_unit" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_section" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_whno" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="52" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="361" height="32"/>
+				<textElement>
+					<font fontName="Times New Roman" size="18"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Institution}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="24" width="361" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Item Status Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="156" splitType="Stretch">
+			<textField>
+				<reportElement x="115" y="21" width="201" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_srno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="36" width="400" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="95" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{inscode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="109" width="231" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{insname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="135" width="103" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Cyear}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="21" width="102" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Item Code :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="95" width="102" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Institution Code :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="102" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Item Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="109" width="102" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Institution Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="135" width="102" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Year :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="50" width="102" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Unit :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="50" width="102" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Unit Price :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="118" y="50" width="67" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{unit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="297" y="50" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{Uprice}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="403" y="136" width="84" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="348" y="136" width="55" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Print Date :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="7" width="90" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="7" width="90" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Value (Rs.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="7" width="90" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="6" width="487" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="30" width="487" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="295" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="234" width="487" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="10" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[RMSD Estiimate : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="29" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Total Receipt  : ]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="156" y="10" width="139" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{rmsdesmt}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="195" y="29" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ttlrcpt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="49" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Total Issue  : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="69" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Onhand: ]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="195" y="49" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ttlissue}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="195" y="69" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{inhand}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="89" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Receipt Percentage :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="109" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Issued Percentage :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00 %">
+				<reportElement x="195" y="89" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{rcpypctg} + "%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="109" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{issuepctg}  + "%"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="134" width="487" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="149" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Institute Estimate :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="169" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Total Issued  : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="189" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Balance to Issue : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="209" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[issued Percentage :]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement x="195" y="149" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{insesmt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="169" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{insissue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="189" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{insbal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="209" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{intinsissuepctg} + "%"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="250" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Last Issued : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="270" width="128" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Last Issued Date : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="195" y="250" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{lastqnty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="270" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dat1e}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="9" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{rmsdesmtVal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="30" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ttlrcptVal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="49" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ttlissueVal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="69" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{inhandval}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="149" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{insesmtVal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="169" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{insissueVal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="189" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{insbalVal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="250" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{lastissueVal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="294" width="487" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch"/>
+	</summary>
+</jasperReport>

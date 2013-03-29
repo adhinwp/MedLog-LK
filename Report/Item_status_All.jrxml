@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Item_status_All" pageWidth="612" pageHeight="792" columnWidth="536" leftMargin="56" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_institute" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     temp_transaction.`g_grnno` AS temp_transaction_g_grnno,
+     temp_transaction.`g_invoseno` AS temp_transaction_g_invoseno,
+     temp_transaction.`g_incode` AS temp_transaction_g_incode,
+     temp_transaction.`g_ordercode` AS temp_transaction_g_ordercode,
+     temp_transaction.`g_date` AS temp_transaction_g_date,
+     temp_transaction.`g_sysdate` AS temp_transaction_g_sysdate,
+     temp_transaction.`g_year` AS temp_transaction_g_year,
+     temp_transaction.`g_month` AS temp_transaction_g_month,
+     temp_transaction.`g_day` AS temp_transaction_g_day,
+     temp_transaction.`g_warehose` AS temp_transaction_g_warehose,
+     temp_transaction.`g_section` AS temp_transaction_g_section,
+     temp_transaction.`g_lot` AS temp_transaction_g_lot,
+     temp_transaction.`g_packsize` AS temp_transaction_g_packsize,
+     temp_transaction.`g_packs` AS temp_transaction_g_packs,
+     temp_transaction.`g_itemcode` AS temp_transaction_g_itemcode,
+     temp_transaction.`g_status` AS temp_transaction_g_status,
+     temp_transaction.`g_transtype` AS temp_transaction_g_transtype,
+     temp_transaction.`g_receipttype` AS temp_transaction_g_receipttype,
+     temp_transaction.`g_initprice` AS temp_transaction_g_initprice,
+     temp_transaction.`g_expdate` AS temp_transaction_g_expdate,
+     temp_transaction.`g_qnty` AS temp_transaction_g_qnty,
+     temp_transaction.`g_Rqnty` AS temp_transaction_g_Rqnty,
+     temp_transaction.`g_Iqnty` AS temp_transaction_g_Iqnty,
+     temp_transaction.`g_coment` AS temp_transaction_g_coment,
+     temp_transaction.`g_user` AS temp_transaction_g_user,
+     ttl_estimate.`estimate_ProductCode` AS ttl_estimate_estimate_ProductCode,
+     ttl_estimate.`estimate_estimate_Qty` AS ttl_estimate_estimate_estimate_Qty,
+     dgs_surgicallist.`d_srno` AS dgs_surgicallist_d_srno,
+     dgs_surgicallist.`d_name` AS dgs_surgicallist_d_name,
+     dgs_surgicallist.`d_unit` AS dgs_surgicallist_d_unit,
+     dgs_surgicallist.`d_section` AS dgs_surgicallist_d_section,
+     dgs_surgicallist.`d_whno` AS dgs_surgicallist_d_whno,
+     dgs_surgicallist.`d_reodrlevel` AS dgs_surgicallist_d_reodrlevel,
+     dgs_surgicallist.`d_ved` AS dgs_surgicallist_d_ved,
+     dgs_surgicallist.`d_user` AS dgs_surgicallist_d_user,
+     dgs_surgicallist.`d_sysdate` AS dgs_surgicallist_d_sysdate,
+     unit_price.`g_itemcode` AS unit_price_g_itemcode,
+     unit_price.`g_initprice` AS unit_price_g_initprice,
+     unit_price.`g_user` AS unit_price_g_user
+FROM
+     `ttl_estimate` ttl_estimate INNER JOIN `temp_transaction` temp_transaction ON ttl_estimate.`estimate_ProductCode` = temp_transaction.`g_itemcode`
+     INNER JOIN `dgs_surgicallist` dgs_surgicallist ON temp_transaction.`g_itemcode` = dgs_surgicallist.`d_srno`
+     INNER JOIN `unit_price` unit_price ON temp_transaction.`g_itemcode` = unit_price.`g_itemcode`]]>
+	</queryString>
+	<field name="temp_transaction_g_grnno" class="java.lang.String"/>
+	<field name="temp_transaction_g_invoseno" class="java.lang.String"/>
+	<field name="temp_transaction_g_incode" class="java.lang.String"/>
+	<field name="temp_transaction_g_ordercode" class="java.lang.Integer"/>
+	<field name="temp_transaction_g_date" class="java.sql.Date"/>
+	<field name="temp_transaction_g_sysdate" class="java.sql.Date"/>
+	<field name="temp_transaction_g_year" class="java.lang.String"/>
+	<field name="temp_transaction_g_month" class="java.lang.String"/>
+	<field name="temp_transaction_g_day" class="java.lang.String"/>
+	<field name="temp_transaction_g_warehose" class="java.lang.String"/>
+	<field name="temp_transaction_g_section" class="java.lang.String"/>
+	<field name="temp_transaction_g_lot" class="java.lang.String"/>
+	<field name="temp_transaction_g_packsize" class="java.lang.Integer"/>
+	<field name="temp_transaction_g_packs" class="java.lang.Integer"/>
+	<field name="temp_transaction_g_itemcode" class="java.lang.String"/>
+	<field name="temp_transaction_g_status" class="java.lang.String"/>
+	<field name="temp_transaction_g_transtype" class="java.lang.String"/>
+	<field name="temp_transaction_g_receipttype" class="java.lang.String"/>
+	<field name="temp_transaction_g_initprice" class="java.lang.Double"/>
+	<field name="temp_transaction_g_expdate" class="java.sql.Date"/>
+	<field name="temp_transaction_g_qnty" class="java.lang.Double"/>
+	<field name="temp_transaction_g_Rqnty" class="java.lang.Double"/>
+	<field name="temp_transaction_g_Iqnty" class="java.lang.Double"/>
+	<field name="temp_transaction_g_coment" class="java.lang.String"/>
+	<field name="temp_transaction_g_user" class="java.lang.String"/>
+	<field name="ttl_estimate_estimate_ProductCode" class="java.lang.String"/>
+	<field name="ttl_estimate_estimate_estimate_Qty" class="java.lang.Double"/>
+	<field name="dgs_surgicallist_d_srno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_name" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_unit" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_section" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_whno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_reodrlevel" class="java.lang.Integer"/>
+	<field name="dgs_surgicallist_d_ved" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_user" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_sysdate" class="java.lang.String"/>
+	<field name="unit_price_g_itemcode" class="java.lang.String"/>
+	<field name="unit_price_g_initprice" class="java.lang.Double"/>
+	<field name="unit_price_g_user" class="java.lang.String"/>
+	<sortField name="temp_transaction_g_itemcode"/>
+	<variable name="ttlreceipt" class="java.lang.Double" resetType="Group" resetGroup="item" calculation="Sum">
+		<variableExpression><![CDATA[$F{temp_transaction_g_Rqnty}]]></variableExpression>
+	</variable>
+	<variable name="ttlIssue" class="java.lang.Double" resetType="Group" resetGroup="item" calculation="Sum">
+		<variableExpression><![CDATA[$F{temp_transaction_g_Iqnty}]]></variableExpression>
+	</variable>
+	<variable name="onhand" class="java.lang.Double" resetType="Group" resetGroup="item" calculation="Sum">
+		<variableExpression><![CDATA[$F{temp_transaction_g_qnty}]]></variableExpression>
+	</variable>
+	<variable name="rmsdvalue" class="java.lang.Double" resetType="Group" resetGroup="item" incrementType="Group" incrementGroup="item">
+		<variableExpression><![CDATA[$F{unit_price_g_initprice}*$F{ttl_estimate_estimate_estimate_Qty}]]></variableExpression>
+	</variable>
+	<variable name="recptvalue" class="java.lang.Double" resetType="Group" resetGroup="item" incrementType="Group" incrementGroup="item">
+		<variableExpression><![CDATA[$F{unit_price_g_initprice}*$V{ttlreceipt}]]></variableExpression>
+	</variable>
+	<variable name="issuevalue" class="java.lang.Double" resetType="Group" resetGroup="item" incrementType="Group" incrementGroup="item">
+		<variableExpression><![CDATA[$F{unit_price_g_initprice}*$V{ttlIssue}]]></variableExpression>
+	</variable>
+	<variable name="onhandvalue" class="java.lang.Double" resetType="Group" resetGroup="item" incrementType="Group" incrementGroup="item">
+		<variableExpression><![CDATA[$F{unit_price_g_initprice}*$V{onhand}]]></variableExpression>
+	</variable>
+	<variable name="rcptpctg" class="java.lang.Double" resetType="Group" resetGroup="item" incrementType="Group" incrementGroup="item">
+		<variableExpression><![CDATA[$V{ttlreceipt}/$F{ttl_estimate_estimate_estimate_Qty}]]></variableExpression>
+	</variable>
+	<variable name="issuepctg" class="java.lang.Double" resetType="Group" resetGroup="item" incrementType="Group" incrementGroup="item">
+		<variableExpression><![CDATA[$V{ttlIssue}/$F{ttl_estimate_estimate_estimate_Qty}]]></variableExpression>
+	</variable>
+	<group name="item">
+		<groupExpression><![CDATA[$F{temp_transaction_g_itemcode}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="215">
+				<textField pattern="#,##0">
+					<reportElement x="173" y="93" width="132" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{ttl_estimate_estimate_estimate_Qty}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="33" width="65" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Unit :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="4" width="65" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Item Code :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="19" width="65" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Item Name :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="65" y="5" width="100" height="19"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{temp_transaction_g_itemcode}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="64" y="19" width="362" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="65" y="33" width="100" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_unit}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="48" width="65" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Unit Price :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="65" y="48" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{unit_price_g_initprice}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="94" width="128" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[RMSD Estiimate : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="133" width="128" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Total Issue  : ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="193" width="128" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Issued Percentage :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="173" width="128" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Receipt Percentage :]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="214" width="529" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="0" y="153" width="128" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Onhand: ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="113" width="128" height="20"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Total Receipt  : ]]></text>
+				</staticText>
+				<textField pattern="#,##0">
+					<reportElement x="173" y="113" width="132" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{ttlreceipt}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0">
+					<reportElement x="173" y="133" width="132" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{ttlIssue}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0">
+					<reportElement x="173" y="153" width="132" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{onhand}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="417" y="71" width="90" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Value (Rs.)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="215" y="71" width="90" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<text><![CDATA[Quantity]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement x="407" y="93" width="100" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{rmsdvalue}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="407" y="113" width="100" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{recptvalue}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="407" y="133" width="100" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{issuevalue}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="407" y="153" width="100" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{onhandvalue}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="205" y="173" width="100" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{rcptpctg}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="205" y="193" width="100" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{issuepctg}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="1" y="0" width="315" height="24"/>
+				<textElement>
+					<font fontName="Times New Roman" size="18"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{p_institute}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="361" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Item Status Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="4" width="36" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Year :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="39" y="4" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{temp_transaction_g_year}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="445" y="4" width="84" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="4" width="55" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Print Date :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="26" width="529" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="3" width="529" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="186" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="266" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="439" y="0" width="90" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<text><![CDATA[End...]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Test_2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="85"/>
+	<subDataset name="New Dataset 1">
+		<parameter name="fromdate" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="todate" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="p_institute" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="transtype" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     sum(temp_transaction.`g_Rqnty`) AS temp_transaction_g_Rqnty,
+     dgs_surgicallist.`d_srno` AS dgs_surgicallist_d_srno,
+     dgs_surgicallist.`d_name` AS dgs_surgicallist_d_name,
+     temp_transaction.`g_itemcode` AS temp_transaction_g_itemcode,
+     ttl_estimate.`estimate_ProductCode` AS ttl_estimate_estimate_ProductCode,
+     ttl_estimate.`estimate_estimate_Qty` AS ttl_estimate_estimate_estimate_Qty
+FROM
+     `temp_transaction` temp_transaction INNER JOIN `dgs_surgicallist` dgs_surgicallist ON temp_transaction.`g_itemcode` = dgs_surgicallist.`d_srno`
+     INNER JOIN `ttl_estimate` ttl_estimate ON temp_transaction.`g_itemcode` = ttl_estimate.`estimate_ProductCode`
+WHERE
+     temp_transaction.`g_date` BETWEEN $P{fromdate} AND $P{todate}
+ AND temp_transaction.`g_transtype` = $P{transtype}
+GROUP BY
+     dgs_surgicallist_d_srno,
+     dgs_surgicallist_d_name,
+     temp_transaction_g_itemcode,
+     ttl_estimate_estimate_ProductCode,
+     ttl_estimate_estimate_estimate_Qty
+ORDER BY
+     temp_transaction.`g_itemcode` ASC,
+     temp_transaction.`g_date` ASC]]>
+		</queryString>
+		<field name="temp_transaction_g_Rqnty" class="java.lang.Double"/>
+		<field name="dgs_surgicallist_d_srno" class="java.lang.String"/>
+		<field name="dgs_surgicallist_d_name" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="fromdate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="todate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_institute" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="transtype" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     dgs_surgicallist.`d_srno` AS dgs_surgicallist_d_srno,
+     dgs_surgicallist.`d_name` AS dgs_surgicallist_d_name,
+     temp_transaction.`g_incode` AS temp_transaction_g_incode,
+     temp_transaction.`g_itemcode` AS temp_transaction_g_itemcode,
+     temp_transaction.`g_transtype` AS temp_transaction_g_transtype,
+     temp_transaction.`g_initprice` AS temp_transaction_g_initprice,
+     temp_transaction.`g_Rqnty` AS temp_transaction_g_Rqnty,
+     ttl_estimate.`estimate_ProductCode` AS ttl_estimate_estimate_ProductCode,
+     ttl_estimate.`estimate_estimate_Qty` AS ttl_estimate_estimate_estimate_Qty,
+     temp_transaction.`g_date` AS temp_transaction_g_date
+FROM
+     `temp_transaction` temp_transaction INNER JOIN `dgs_surgicallist` dgs_surgicallist ON temp_transaction.`g_itemcode` = dgs_surgicallist.`d_srno`
+     INNER JOIN `ttl_estimate` ttl_estimate ON temp_transaction.`g_itemcode` = ttl_estimate.`estimate_ProductCode`
+WHERE
+     temp_transaction.`g_date` BETWEEN $P{fromdate} AND $P{todate}
+ AND temp_transaction.`g_transtype` = $P{transtype}
+ORDER BY
+     temp_transaction.`g_itemcode` ASC,
+     temp_transaction.`g_date` ASC]]>
+	</queryString>
+	<field name="dgs_surgicallist_d_srno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_name" class="java.lang.String"/>
+	<field name="temp_transaction_g_incode" class="java.lang.String"/>
+	<field name="temp_transaction_g_itemcode" class="java.lang.String"/>
+	<field name="temp_transaction_g_transtype" class="java.lang.String"/>
+	<field name="temp_transaction_g_initprice" class="java.lang.Double"/>
+	<field name="temp_transaction_g_Rqnty" class="java.lang.Double"/>
+	<field name="ttl_estimate_estimate_ProductCode" class="java.lang.String"/>
+	<field name="ttl_estimate_estimate_estimate_Qty" class="java.lang.Double"/>
+	<field name="temp_transaction_g_date" class="java.sql.Date"/>
+	<variable name="Tot_RQunt" class="java.lang.Double" resetType="Group" resetGroup="group1" incrementType="Group" incrementGroup="group1" calculation="Sum">
+		<variableExpression><![CDATA[$F{temp_transaction_g_Rqnty}]]></variableExpression>
+	</variable>
+	<variable name="temp_transaction_g_Rqnty_1" class="java.lang.Double" resetType="Group" resetGroup="group1" calculation="Sum">
+		<variableExpression><![CDATA[$F{temp_transaction_g_Rqnty}]]></variableExpression>
+	</variable>
+	<group name="group1" isStartNewColumn="true">
+		<groupExpression><![CDATA[$F{dgs_surgicallist_d_srno}]]></groupExpression>
+		<groupHeader>
+			<band height="25">
+				<textField>
+					<reportElement x="9" y="0" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_srno}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00">
+					<reportElement x="111" y="0" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{ttl_estimate_estimate_estimate_Qty}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="308">
+				<textField>
+					<reportElement x="332" y="0" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{temp_transaction_g_Rqnty_1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="311" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_name}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="6" y="20" width="549" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<pieChart>
+					<chart>
+						<reportElement x="6" y="21" width="532" height="287"/>
+						<chartTitle/>
+						<chartSubtitle/>
+						<chartLegend/>
+					</chart>
+					<pieDataset>
+						<dataset resetType="Group" resetGroup="group1"/>
+						<keyExpression><![CDATA[$V{group1_COUNT}]]></keyExpression>
+						<valueExpression><![CDATA[$F{temp_transaction_g_Rqnty}]]></valueExpression>
+						<labelExpression><![CDATA[$F{temp_transaction_g_Rqnty}.toString()]]></labelExpression>
+					</pieDataset>
+					<piePlot>
+						<plot/>
+						<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+					</piePlot>
+				</pieChart>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="35" splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band height="28">
+			<staticText>
+				<reportElement x="9" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[dgs_surgicallist_d_srno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[ttl_estimate_estimate_estimate_Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="2" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[temp_transaction_g_Rqnty]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22">
+			<textField pattern="#,##0.00">
+				<reportElement x="211" y="0" width="100" height="16"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{temp_transaction_g_Rqnty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

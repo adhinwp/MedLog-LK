@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="annua_esimatel" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="YYear" class="java.lang.String"/>
+	<parameter name="p_institute" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     estimate.`ProductCode` AS estimate_ProductCode,
+     estimate.`estimate_Qty` AS estimate_estimate_Qty,
+     dgs_surgicallist.`d_srno` AS dgs_surgicallist_d_srno,
+     dgs_surgicallist.`d_name` AS dgs_surgicallist_d_name,
+     dgs_surgicallist.`d_unit` AS dgs_surgicallist_d_unit,
+     dgs_surgicallist.`d_section` AS dgs_surgicallist_d_section,
+     dgs_surgicallist.`d_whno` AS dgs_surgicallist_d_whno,
+     dgs_surgicallist.`d_ved` AS dgs_surgicallist_d_ved,
+     unit_price.`g_itemcode` AS unit_price_g_itemcode,
+     unit_price.`g_initprice` AS unit_price_g_initprice
+FROM
+     `unit_price` unit_price RIGHT OUTER JOIN `dgs_surgicallist` dgs_surgicallist ON unit_price.`g_itemcode` = dgs_surgicallist.`d_srno`
+     LEFT OUTER JOIN `estimate` estimate ON dgs_surgicallist.`d_srno` = estimate.`ProductCode`
+ORDER BY  dgs_surgicallist.`d_srno`]]>
+	</queryString>
+	<field name="estimate_ProductCode" class="java.lang.String"/>
+	<field name="estimate_estimate_Qty" class="java.lang.Double"/>
+	<field name="dgs_surgicallist_d_srno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_name" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_unit" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_section" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_whno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_ved" class="java.lang.String"/>
+	<field name="unit_price_g_itemcode" class="java.lang.String"/>
+	<field name="unit_price_g_initprice" class="java.lang.Double"/>
+	<variable name="ttlqnty" class="java.lang.Double" resetType="Group" resetGroup="SRnum" calculation="Sum">
+		<variableExpression><![CDATA[$F{estimate_estimate_Qty}]]></variableExpression>
+	</variable>
+	<variable name="ttlvalue" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{estimate_estimate_Qty}*$F{unit_price_g_initprice}]]></variableExpression>
+	</variable>
+	<group name="SRnum">
+		<groupExpression><![CDATA[$F{dgs_surgicallist_d_srno}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="22">
+				<textField>
+					<reportElement x="38" y="0" width="33" height="20"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_whno}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="137" y="0" width="231" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="371" y="0" width="28" height="20"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_unit}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="459" y="0" width="23" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_ved}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="404" y="0" width="55" height="20"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{unit_price_g_initprice}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="0" width="63" height="20"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{dgs_surgicallist_d_srno}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0">
+					<reportElement x="493" y="2" width="126" height="20"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{ttlqnty}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00;-###0.00">
+					<reportElement x="619" y="2" width="131" height="20"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{ttlvalue}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="4" width="748" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{p_institute}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement x="2" y="3" width="750" height="75"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="71" y="4" width="63" height="74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SR No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="4" width="33" height="74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[WH  No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="137" y="4" width="234" height="74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Name of the Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="4" width="55" height="74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Unit Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="4" width="28" height="74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Unit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="459" y="4" width="23" height="74"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VEN Analysis]]></text>
+			</staticText>
+			<line>
+				<reportElement x="489" y="29" width="263" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="490" y="8" width="262" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Estimate "  + $P{YYear}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="619" y="30" width="1" height="48"/>
+			</line>
+			<line>
+				<reportElement x="489" y="4" width="1" height="74"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="5" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="343" y="2" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="423" y="2" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

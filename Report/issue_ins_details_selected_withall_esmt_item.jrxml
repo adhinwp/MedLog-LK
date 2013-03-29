@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="issue_ins_details_selected_withall_esmt_item" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="52"/>
+	<parameter name="fromdate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="todate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_institute" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="transtype" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="inscode" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="insname" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     dgs_surgicallist.`d_srno` AS dgs_surgicallist_d_srno,
+     dgs_surgicallist.`d_name` AS dgs_surgicallist_d_name,
+     temp_transaction.`g_incode` AS temp_transaction_g_incode,
+     temp_transaction.`g_itemcode` AS temp_transaction_g_itemcode,
+     temp_transaction.`g_transtype` AS temp_transaction_g_transtype,
+     temp_transaction.`g_initprice` AS temp_transaction_g_initprice,
+     temp_transaction.`g_Iqnty` AS temp_transaction_g_Iqnty,
+     ttl_estimate.`estimate_ProductCode` AS ttl_estimate_estimate_ProductCode,
+     ttl_estimate.`estimate_estimate_Qty` AS ttl_estimate_estimate_estimate_Qty,
+     institution.`Incode` AS institution_Incode,
+     institution.`name` AS institution_name
+FROM
+     `temp_transaction` temp_transaction INNER JOIN `dgs_surgicallist` dgs_surgicallist ON temp_transaction.`g_itemcode` = dgs_surgicallist.`d_srno`
+     INNER JOIN `ttl_estimate` ttl_estimate ON temp_transaction.`g_itemcode` = ttl_estimate.`estimate_ProductCode`
+     INNER JOIN `institution` institution ON temp_transaction.`g_incode` = institution.`Incode`
+WHERE
+     temp_transaction.`g_date` BETWEEN $P{fromdate} AND $P{todate}
+ AND temp_transaction.`g_itemcode` = $P{inscode}
+ORDER BY
+     temp_transaction.`g_itemcode` ASC]]>
+	</queryString>
+	<field name="dgs_surgicallist_d_srno" class="java.lang.String"/>
+	<field name="dgs_surgicallist_d_name" class="java.lang.String"/>
+	<field name="temp_transaction_g_incode" class="java.lang.String"/>
+	<field name="temp_transaction_g_itemcode" class="java.lang.String"/>
+	<field name="temp_transaction_g_transtype" class="java.lang.String"/>
+	<field name="temp_transaction_g_initprice" class="java.lang.Double"/>
+	<field name="temp_transaction_g_Iqnty" class="java.lang.Double"/>
+	<field name="ttl_estimate_estimate_ProductCode" class="java.lang.String"/>
+	<field name="ttl_estimate_estimate_estimate_Qty" class="java.lang.Double"/>
+	<field name="institution_Incode" class="java.lang.String"/>
+	<field name="institution_name" class="java.lang.String"/>
+	<variable name="ttlestimate" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{ttl_estimate_estimate_estimate_Qty}]]></variableExpression>
+	</variable>
+	<variable name="ttlissue" class="java.lang.Double" resetType="Group" resetGroup="Inscode" calculation="Sum">
+		<variableExpression><![CDATA[$F{temp_transaction_g_Iqnty}]]></variableExpression>
+	</variable>
+	<variable name="ttlvalue" class="java.lang.Double" resetType="Group" resetGroup="Inscode">
+		<variableExpression><![CDATA[$F{temp_transaction_g_initprice}*$F{temp_transaction_g_Iqnty}]]></variableExpression>
+	</variable>
+	<variable name="sumvalue" class="java.lang.Double" resetType="Group" resetGroup="Inscode" calculation="Sum">
+		<variableExpression><![CDATA[$V{ttlvalue}]]></variableExpression>
+	</variable>
+	<variable name="percentage" class="java.lang.Double" resetType="Group" resetGroup="Inscode">
+		<variableExpression><![CDATA[$V{ttlissue}/$V{ttlestimate}]]></variableExpression>
+	</variable>
+	<variable name="grandttl" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{temp_transaction_g_initprice}*$F{temp_transaction_g_Iqnty}]]></variableExpression>
+	</variable>
+	<group name="itemName">
+		<groupExpression><![CDATA[$F{temp_transaction_g_itemcode}]]></groupExpression>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Inscode">
+		<groupExpression><![CDATA[$F{temp_transaction_g_incode}]]></groupExpression>
+		<groupFooter>
+			<band height="20">
+				<textField pattern="#,##0.00">
+					<reportElement x="516" y="0" width="69" height="20"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{sumvalue}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement x="464" y="0" width="43" height="20"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{percentage}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0;-#,##0">
+					<reportElement x="314" y="0" width="72" height="20"/>
+					<textElement textAlignment="Right">
+						<font isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{ttlestimate}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.0;-#,##0.0">
+					<reportElement x="386" y="2" width="67" height="18"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{ttlissue}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="17" y="0" width="293" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{institution_name}+ "  ( " + $F{temp_transaction_g_incode} + " )"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="142" splitType="Stretch">
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="147" y="122" width="97" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{todate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="132" y="122" width="15" height="20"/>
+				<textElement/>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="122" width="52" height="20"/>
+				<textElement/>
+				<text><![CDATA[Date From]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="68" y="122" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{fromdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="17" y="22" width="568" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Issue Detals Sammary Report According to All Estimate]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="16" y="2" width="572" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{p_institute}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="95" width="244" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{inscode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="109" width="240" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{insname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="109" width="102" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Institution Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="95" width="101" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Institution Code]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="16" y="1" width="572" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="516" y="3" width="69" height="20"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Value (Rs.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="3" width="297" height="20"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Institution Name (Ins Code)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="3" width="67" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Issue Qnty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="3" width="72" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Estimate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="3" width="42" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[%]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="207" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="287" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="294" splitType="Stretch">
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="476" y="4" width="109" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{grandttl}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="331" y="4" width="133" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Grand Value :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="475" y="26" width="110" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="476" y="4" width="109" height="1"/>
+			</line>
+			<barChart>
+				<chart>
+					<reportElement x="17" y="70" width="568" height="224"/>
+					<chartTitle position="Top" color="#0000CC">
+						<titleExpression><![CDATA["Issue Detals Sammary  for  " + $P{insname} + "  According to All Estimate"]]></titleExpression>
+					</chartTitle>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<dataset resetType="Column"/>
+					<categorySeries>
+						<seriesExpression><![CDATA["est"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{temp_transaction_g_incode}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{ttlestimate}]]></valueExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["issue"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{temp_transaction_g_incode}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{ttlissue}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot labelRotation="90.0"/>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+					<categoryAxisFormat labelRotation="90.0">
+						<axisFormat>
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont/>
+							<tickLabelFont/>
+						</axisFormat>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<line>
+				<reportElement x="90" y="38" width="495" height="1"/>
+			</line>
+			<pieChart>
+				<chart isShowLegend="false" theme="default">
+					<reportElement x="17" y="4" width="73" height="66"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset resetType="Group" resetGroup="itemName"/>
+					<pieSeries>
+						<keyExpression><![CDATA[$V{ttlestimate}]]></keyExpression>
+						<valueExpression><![CDATA[$V{ttlestimate}]]></valueExpression>
+					</pieSeries>
+					<pieSeries>
+						<keyExpression><![CDATA[$F{temp_transaction_g_incode}]]></keyExpression>
+						<valueExpression><![CDATA[$V{ttlissue}]]></valueExpression>
+					</pieSeries>
+				</pieDataset>
+				<piePlot isShowLabels="false" isCircular="true">
+					<plot/>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
